@@ -23,19 +23,6 @@ namespace GraficadorSenales
         public MainWindow()
         {
             InitializeComponent();
-
-            plnGrafica.Points.Add(new Point(0, 10));
-            plnGrafica.Points.Add(new Point(50, 20));
-            plnGrafica.Points.Add(new Point(150, 10));
-            plnGrafica.Points.Add(new Point(200, 50));
-            plnGrafica.Points.Add(new Point(250, 0));
-            plnGrafica.Points.Add(new Point(300, 100));
-            plnGrafica.Points.Add(new Point(350, 30));
-            plnGrafica.Points.Add(new Point(450, 0));
-            plnGrafica.Points.Add(new Point(550, 40));
-            plnGrafica.Points.Add(new Point(650, 60));
-            plnGrafica.Points.Add(new Point(750, 30));
-            plnGrafica.Points.Add(new Point(850, 10));
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -46,6 +33,25 @@ namespace GraficadorSenales
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void btnGraficar_Click(object sender, RoutedEventArgs e)
+        {
+            double amplitud = double.Parse(txtAmplitud.Text);
+            double fase = double.Parse(txtFase.Text);
+            double frecuencia =double.Parse(txtFrecuencia.Text);
+
+            double TiempoInicial = double.Parse(txtTiempoInicial.Text);
+            double TiempoFinal = double.Parse(txtTiempoFinal.Text);
+            double FrecuenciaMuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
+
+            SenalSenoidal señal = new SenalSenoidal(amplitud, fase, frecuencia);
+
+            double periodoMuestreo = 1 / FrecuenciaMuestreo;
+            for (double i = TiempoInicial; i <= TiempoFinal; i += periodoMuestreo)
+            {
+                plnGrafica.Points.Add(new Point(i * scrContenedor.Width, (señal.evaluar(i) * ((scrContenedor.Height / 2.0)-30) * -1) + (scrContenedor.Height / 2)));
+            }
         }
     }
 }
