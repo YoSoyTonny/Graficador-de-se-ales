@@ -39,33 +39,42 @@ namespace GraficadorSenales
         {
             double amplitud = double.Parse(txtAmplitud.Text);
             double fase = double.Parse(txtFase.Text);
-            double frecuencia =double.Parse(txtFrecuencia.Text);
+            double frecuencia = double.Parse(txtFrecuencia.Text);
 
             double TiempoInicial = double.Parse(txtTiempoInicial.Text);
             double TiempoFinal = double.Parse(txtTiempoFinal.Text);
             double FrecuenciaMuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
 
-            SenalSenoidal señal = new SenalSenoidal(amplitud, fase, frecuencia);
-
-            double periodoMuestreo = 1 / FrecuenciaMuestreo;
-            for (double i = TiempoInicial; i <= TiempoFinal; i += periodoMuestreo)
+            Señal señal;
+            switch (cbTipoSeñal.SelectedIndex)
             {
-                double valorMuestra = señal.evaluar(i);
-
-                if (Math.Abs(valorMuestra) > señal.AmplitudMaxima)
-                {
-                    señal.AmplitudMaxima = Math.Abs(valorMuestra);
-                }
-
-                señal.Muestra.Add(new Muestra(i, valorMuestra ));
+                case 0:
+                    señal = new SenalSenoidal(amplitud, fase, frecuencia);
+                    break;
+                case 1:
+                    señal = new SenalRampa();
+                    break;
+                default:
+                    señal = null;
+                    break;
             }
 
-            foreach (Muestra muestra in señal.Muestra)
+            señal.tiempoInicial = TiempoFinal;
+            señal.tiempoFinal = TiempoFinal;
+            señal.frecuenciaMuestreo = FrecuenciaMuestreo;
+
+            señal.constrirSeñalDigital();
+
+            plnGrafica.Points.Clear();
+            if (señal != null)
             {
-                plnGrafica.Points.Add(new Point((muestra.X - TiempoInicial) * scrContenedor.Width
-                    , (muestra.Y * ((scrContenedor.Height / 2.0)-30) * -1)
-                    + (scrContenedor.Height / 2))
-                    );
+                foreach (Muestra muestra in señal.Muestra)
+                {
+                    plnGrafica.Points.Add(new Point((muestra.X - TiempoInicial) * scrContenedor.Width
+                        , (muestra.Y * ((scrContenedor.Height / 2.0) - 30) * -1)
+                        + (scrContenedor.Height / 2))
+                        );
+                }
             }
 
             plnEjeX.Points.Clear();
