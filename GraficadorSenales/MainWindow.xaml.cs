@@ -37,18 +37,15 @@ namespace GraficadorSenales
 
         private void btnGraficar_Click(object sender, RoutedEventArgs e)
         {
-            double amplitud = double.Parse(txtAmplitud.Text);
-            double fase = double.Parse(txtFase.Text);
-            double frecuencia = double.Parse(txtFrecuencia.Text);
-
-            double TiempoInicial = double.Parse(txtTiempoInicial.Text);
-            double TiempoFinal = double.Parse(txtTiempoFinal.Text);
-            double FrecuenciaMuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
 
             Señal señal;
             switch (cbTipoSeñal.SelectedIndex)
             {
                 case 0:
+                    double amplitud = double.Parse(txtAmplitud.Text);
+                    double fase = double.Parse(txtFase.Text);
+                    double frecuencia = double.Parse(txtFrecuencia.Text);
+
                     señal = new SenalSenoidal(amplitud, fase, frecuencia);
                     break;
                 case 1:
@@ -75,6 +72,8 @@ namespace GraficadorSenales
                         + (scrContenedor.Height / 2))
                         );
                 }
+                lblAmplitudMaxY.Text = señal.AmplitudMaxima.ToString();
+                lblAmplitudMaxY.Text = "-" + señal.AmplitudMaxima.ToString();
             }
 
             plnEjeX.Points.Clear();
