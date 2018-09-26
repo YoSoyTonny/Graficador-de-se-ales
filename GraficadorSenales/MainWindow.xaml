@@ -12,31 +12,30 @@
             <ColumnDefinition Width="61*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Left" Margin="26,26,0,0" TextWrapping="Wrap" Text="Amplitud" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="txtAmplitud" HorizontalAlignment="Left" Height="23" Margin="26,60,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704"/>
-        <TextBlock HorizontalAlignment="Left" Margin="26,85,0,0" TextWrapping="Wrap" Text="Fase" VerticalAlignment="Top" FontSize="18" Width="42"/>
-        <TextBox x:Name="txtFase" HorizontalAlignment="Left" Height="23" Margin="26,111,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704" TextChanged="TextBox_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Margin="26,140,0,0" TextWrapping="Wrap" Text="Frecuencia" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="txtFrecuencia" HorizontalAlignment="Left" Height="23" Margin="26,167,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704"/>
+        <TextBlock x:Name="lblAmplitudMaximaY" HorizontalAlignment="Left" Margin="44,200,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="15" Width="21"/>
+        <TextBlock x:Name="lblAmplitudMaximaY_Negativa" HorizontalAlignment="Left" Margin="44,386,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="15" Width="21" Height="23"/>
+        <TextBlock x:Name="lblAmplitudCero" HorizontalAlignment="Left" Margin="44,291,0,0" TextWrapping="Wrap" Text="-0-" VerticalAlignment="Top" FontSize="15" Width="21" RenderTransformOrigin="0.524,9.05" Height="28"/>
         <TextBlock HorizontalAlignment="Left" Margin="237,26,0,0" TextWrapping="Wrap" Text="Tiempo inicial" VerticalAlignment="Top" FontSize="18"/>
         <TextBox x:Name="txtTiempoInicial" HorizontalAlignment="Left" Height="23" Margin="237,60,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704"/>
         <TextBlock HorizontalAlignment="Left" Margin="237,86,0,0" TextWrapping="Wrap" Text="Tiempo final" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="txtTiempoFinal" HorizontalAlignment="Left" Height="23" Margin="237,111,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox x:Name="txtTiempoFinal" HorizontalAlignment="Left" Height="23" Margin="237,111,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704"/>
         <TextBlock HorizontalAlignment="Left" Margin="237,140,0,0" TextWrapping="Wrap" Text="Frecuencia de muestreo" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="txtFrecuenciaMuestreo" HorizontalAlignment="Left" Height="23" Margin="237,167,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox x:Name="txtFrecuenciaMuestreo" HorizontalAlignment="Left" Height="23" Margin="237,167,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.45,-0.704"/>
         <Button x:Name="btnGraficar" Content="Graficar" HorizontalAlignment="Left" Margin="450,140,0,0" VerticalAlignment="Top" Width="264" Height="24" Click="btnGraficar_Click"/>
-        <ScrollViewer x:Name="scrContenedor" HorizontalAlignment="Left" Height="223" Margin="26,195,-2,0" VerticalAlignment="Top" Width="768" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer x:Name="scrContenedor" HorizontalAlignment="Left" Height="223" Margin="70,195,-0.4,0" VerticalAlignment="Top" Width="724" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <Polyline Stroke="Black" StrokeThickness="2" Name="plnGrafica"></Polyline>
                 <Polyline Stroke="Red" StrokeThickness="0.5" Name="plnEjeX" />
                 <Polyline Stroke="Blue" StrokeThickness="0.5" Name="plnEjeY" />
             </Grid>
         </ScrollViewer>
-        <ComboBox x:Name="cbTipoSeñal" SelectedIndex="0" HorizontalAlignment="Left" Margin="450,53,0,0" VerticalAlignment="Top" Width="264">
-            <ComboBoxItem> Señal senoidal </ComboBoxItem>
-            <ComboBoxItem> Señal rampa </ComboBoxItem>
+        <StackPanel x:Name="panelConfiguracion" HorizontalAlignment="Left" Height="185" Margin="10,10,0,0" VerticalAlignment="Top" Width="222"/>
+        <ComboBox x:Name="cbTipoSeñal" SelectedIndex="0" HorizontalAlignment="Left" Margin="450,53,0,0" VerticalAlignment="Top" Width="264" SelectionChanged="cbTipoSeñal_SelectionChanged">
+            <ComboBoxItem>Señal senoidal</ComboBoxItem>
+            <ComboBoxItem>Señal rampa</ComboBoxItem>
+            <ComboBoxItem>Señal exponencial</ComboBoxItem>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="450,26,0,0" TextWrapping="Wrap" Text="TIPO DE SEÑAL" VerticalAlignment="Top" Height="27" Width="184" FontSize="18"/>
-
+        
     </Grid>
 </Window>

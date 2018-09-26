@@ -18,6 +18,7 @@ namespace GraficadorSenales
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -25,101 +26,96 @@ namespace GraficadorSenales
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void btnGraficar_Click(object sender, RoutedEventArgs e)
         {
+            double tiempoInicial = double.Parse(txtTiempoInicial.Text);
+            double tiempoFinal = double.Parse(txtTiempoFinal.Text);
+            double frecMuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
 
             Señal señal;
+
             switch (cbTipoSeñal.SelectedIndex)
             {
                 case 0:
-                    double amplitud = double.Parse(txtAmplitud.Text);
-                    double fase = double.Parse(txtFase.Text);
-                    double frecuencia = double.Parse(txtFrecuencia.Text);
+                    double amplitud = double.Parse(((ConfiguracionSenoidal)(panelConfiguracion.Children[0])).txtAmplitud.Text);
+                    double fase = double.Parse(((ConfiguracionSenoidal)(panelConfiguracion.Children[0])).txtFase.Text);
+                    double frecuencia = double.Parse(((ConfiguracionSenoidal)(panelConfiguracion.Children[0])).txtFrecuencia.Text);
 
                     señal = new SenalSenoidal(amplitud, fase, frecuencia);
                     break;
+
                 case 1:
                     señal = new SenalRampa();
                     break;
+
+                case 2:
+                    double alpha = double.Parse(((ConfiguracionExponencial)(panelConfiguracion.Children[0])).txtAlpha.Text);
+
+                    señal = new SenalExponencial(alpha);
+                    break;
+
                 default:
                     señal = null;
                     break;
             }
 
-            señal.tiempoInicial = TiempoFinal;
-            señal.tiempoFinal = TiempoFinal;
-            señal.frecuenciaMuestreo = FrecuenciaMuestreo;
+            señal.TiempoInicial = tiempoInicial;
+            señal.TiempoFinal = tiempoFinal;
+            señal.FrecuenciaMuestreo = frecMuestreo;
 
-            señal.constrirSeñalDigital();
-
+            señal.construirSenalDigital();
             plnGrafica.Points.Clear();
+
             if (señal != null)
             {
+                //Recorrer una colección o arreglo.
                 foreach (Muestra muestra in señal.Muestra)
                 {
-                    plnGrafica.Points.Add(new Point((muestra.X - TiempoInicial) * scrContenedor.Width
-                        , (muestra.Y * ((scrContenedor.Height / 2.0) - 30) * -1)
-                        + (scrContenedor.Height / 2))
-                        );
+                    plnGrafica.Points.Add(new Point((muestra.X - tiempoInicial) * scrContenedor.Width,
+                        (muestra.Y / señal.AmplitudMaxima) * ((scrContenedor.Height / 2.0) - 30) * -1 + (scrContenedor.Height / 2)));
                 }
-                lblAmplitudMaxY.Text = señal.AmplitudMaxima.ToString();
-                lblAmplitudMaxY.Text = "-" + señal.AmplitudMaxima.ToString();
+
+                lblAmplitudMaximaY.Text = señal.AmplitudMaxima.ToString();
+                lblAmplitudMaximaY_Negativa.Text = "-" + señal.AmplitudMaxima.ToString();
             }
 
+            //Graficando el eje de X
             plnEjeX.Points.Clear();
+            //Punto de inicio.
             plnEjeX.Points.Add(new Point(0, (scrContenedor.Height / 2)));
-            plnEjeX.Points.Add(new Point((TiempoFinal - TiempoInicial) * scrContenedor.Width, (scrContenedor.Height / 2)));
+            //Punto de fin.
+            plnEjeX.Points.Add(new Point((tiempoFinal - tiempoInicial) * scrContenedor.Width, (scrContenedor.Height / 2)));
 
+            //Graficando el eje de Y
             plnEjeY.Points.Clear();
-            plnEjeY.Points.Add(new Point((0 - TiempoInicial) * scrContenedor.Width, 
-                (señal.AmplitudMaxima * ((scrContenedor.Height / 2.0) - 30) * -1)
-                    + (scrContenedor.Height / 2)));
-            plnEjeY.Points.Add(new Point((0 - TiempoInicial) * scrContenedor.Width, 
-                (-señal.AmplitudMaxima * ((scrContenedor.Height / 2.0) - 30) * -1)
-                    + (scrContenedor.Height / 2)));
-
-            /*lblAmplitudMaximaY.Text = señal.AmplitudMaxima.ToString();
-            lblAmplitudMaximaNegativaY.Text = "-" + señal.AmplitudMaxima.ToString();*/
+            //Punto de inicio.
+            plnEjeY.Points.Add(new Point(0 - tiempoInicial * scrContenedor.Width, scrContenedor.Height));
+            //Punto de fin.
+            plnEjeY.Points.Add(new Point(0 - tiempoInicial * scrContenedor.Width, scrContenedor.Height * -1));
         }
 
-        private void btnGraficarRampa_Click(object sender, RoutedEventArgs e)
+        private void cbTipoSeñal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            double TiempoInicial = double.Parse(txtTiempoInicial.Text);
-            double TiempoFinal = double.Parse(txtTiempoFinal.Text);
-            double FrecuenciaMuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
-
-            SenalRampa señal = new SenalRampa();
-
-            double periodoMuestreo = 1 / FrecuenciaMuestreo;
-
-            for (double i = TiempoInicial; i <= TiempoFinal; i += periodoMuestreo)
+            if (panelConfiguracion != null)
             {
-                double valorMuestra = señal.evaluar(i);
+                panelConfiguracion.Children.Clear();
 
-                if (Math.Abs(valorMuestra) > señal.AmplitudMaxima)
+                switch (cbTipoSeñal.SelectedIndex)
                 {
-                    señal.AmplitudMaxima = Math.Abs(valorMuestra);
+                    case 0: //Senoidal
+                        panelConfiguracion.Children.Add(new ConfiguracionSenoidal());
+                        break;
+
+                    case 1: //Rampa
+                        break;
+
+                    case 2: //Exponencial
+                        panelConfiguracion.Children.Add(new ConfiguracionExponencial());
+                        break;
+
+                    default:
+                        break;
                 }
-
-                señal.Muestra.Add(new Muestra(i, valorMuestra));
-            }
-
-            foreach (Muestra muestra in señal.Muestra)
-            {
-                plnGrafica.Points.Add(new Point(muestra.X * scrContenedor.Width
-                    , (muestra.Y * ((scrContenedor.Height / 2.0) - 30) * -1)
-                    + (scrContenedor.Height / 2))
-                    );
             }
         }
     }
