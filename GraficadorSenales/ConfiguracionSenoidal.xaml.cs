@@ -18,7 +18,7 @@ namespace GraficadorSenales
     /// <summary>
     /// Lógica de interacción para ConfiguracionSenoidal.xaml
     /// </summary>
-    public partial class ConfiguracionSenoidal : Page
+    public partial class ConfiguracionSenoidal : UserControl
     {
         public ConfiguracionSenoidal()
         {

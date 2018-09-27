@@ -64,6 +64,13 @@ namespace GraficadorSenales
             señal.FrecuenciaMuestreo = frecMuestreo;
 
             señal.construirSenalDigital();
+
+            //Escalar
+            double factorEscala = double.Parse(txtFactorEscalaAmplitud.Text);
+            señal.escalar(factorEscala);
+
+            señal.actualizarAmplitudMaxima();
+
             plnGrafica.Points.Clear();
 
             if (señal != null)
@@ -118,5 +125,10 @@ namespace GraficadorSenales
                 }
             }
         }
+
+       /* private void txtEscalaAmplitud_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }*/
     }
 }

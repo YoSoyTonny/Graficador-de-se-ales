@@ -33,5 +33,27 @@ namespace GraficadorSenales
                 Muestra.Add(new Muestra(i, valorMuestra));
             }
         }
+
+        public void escalar(double factor)
+        {
+            foreach(Muestra muestra in Muestra)
+            {
+                muestra.Y *= factor; //Se va a modificar la muestra
+
+            }
+        }
+
+        //Ajustar limites
+        public void actualizarAmplitudMaxima()
+        {
+            AmplitudMaxima = 0;
+            foreach(Muestra muestra in Muestra)
+            {
+                if (Math.Abs(muestra.Y) > AmplitudMaxima)
+                {
+                    AmplitudMaxima = Math.Abs(muestra.Y);
+                }
+            }
+        }
     }
 }
