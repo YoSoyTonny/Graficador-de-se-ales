@@ -36,9 +36,9 @@
             <ComboBoxItem>Señal exponencial</ComboBoxItem>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="671,10,0,0" TextWrapping="Wrap" Text="TIPO DE SEÑAL" VerticalAlignment="Top" Height="27" Width="184" FontSize="18"/>
-        <TextBox x:Name="txtFactorEscalaAmplitud" HorizontalAlignment="Left" Height="23" Margin="297,44,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" TextChanged="txtEscalaAmplitud_TextChanged"/>
+        <TextBox x:Name="txtFactorEscalaAmplitud" HorizontalAlignment="Left" Height="23" Margin="297,44,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" />
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="297,13,0,0" TextWrapping="Wrap" Text="Escala de Amplitud" VerticalAlignment="Top" Height="22" Width="145" FontSize="16"/>
-        <TextBox x:Name="txtFactorEscalaAmplitud_Copy" HorizontalAlignment="Left" Height="23" Margin="297,97,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextChanged="txtEscalaAmplitud_TextChanged"/>
+        <TextBox x:Name="txtFactorEscalaAmplitud_Copy" HorizontalAlignment="Left" Height="23" Margin="297,97,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" />
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="297,76,0,0" TextWrapping="Wrap" Text="Desplazamiento en Y:" VerticalAlignment="Top" Height="22" Width="165" FontSize="16"/>
         <CheckBox x:Name="chkEscalaAmplitud" Content="CheckBox" HorizontalAlignment="Left" Margin="428,47,0,0" VerticalAlignment="Top" Width="17"/>
         <CheckBox x:Name="chkDesplazamientoY" Content="CheckBox" HorizontalAlignment="Left" Margin="428,102,0,0" VerticalAlignment="Top" Width="17" Height="18"/>
