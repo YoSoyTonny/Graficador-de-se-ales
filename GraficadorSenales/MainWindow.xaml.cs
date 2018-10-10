@@ -82,8 +82,8 @@ namespace GraficadorSenales
                         (muestra.Y / señal.AmplitudMaxima) * ((scrContenedor.Height / 2.0) - 30) * -1 + (scrContenedor.Height / 2)));
                 }
 
-                lblAmplitudMaximaY.Text = señal.AmplitudMaxima.ToString();
-                lblAmplitudMaximaY_Negativa.Text = "-" + señal.AmplitudMaxima.ToString();
+                lblAmplitudMaximaY.Text = señal.AmplitudMaxima.ToString("F");
+                lblAmplitudMaximaY_Negativa.Text = "-" + señal.AmplitudMaxima.ToString("F");
             }
 
             //Graficando el eje de X
@@ -126,9 +126,14 @@ namespace GraficadorSenales
             }
         }
 
-       /* private void txtEscalaAmplitud_TextChanged(object sender, TextChangedEventArgs e)
+        private void cbTipoSeñal_SegundaSeñal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }*/
+        }
+
+        /* private void txtEscalaAmplitud_TextChanged(object sender, TextChangedEventArgs e)
+         {
+
+         }*/
     }
 }
