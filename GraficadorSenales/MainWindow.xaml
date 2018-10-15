@@ -55,9 +55,10 @@
         <ComboBox x:Name="cbTipoSeñal_SegundaSeñal" SelectedIndex="0" HorizontalAlignment="Left" Margin="763,10,0,0" VerticalAlignment="Top" Width="156" SelectionChanged="cbTipoSeñal_SegundaSeñal_SelectionChanged" Height="22" Grid.Column="3">
             <ComboBoxItem Content="Señal senoidal"/>
             <ComboBoxItem Content="Señal rampa"/>
-            <ComboBoxItem Content="Señal exponencial"/>
+            <ComboBoxItem Content="Señal exponencial"/> 
+            <StackPanel x:Name="panelConfiguracion_SegundaSeñal" HorizontalAlignment="Left" Height="185" Margin="763,37,0,0" VerticalAlignment="Top" Width="250" Grid.Column="3"/>
         </ComboBox>
-        <StackPanel x:Name="panelConfiguracion_SegundaSeñal" HorizontalAlignment="Left" Height="185" Margin="763,37,0,0" VerticalAlignment="Top" Width="250" Grid.Column="3"/>
+       
 
     </Grid>
 </Window>
